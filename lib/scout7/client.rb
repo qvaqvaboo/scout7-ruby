@@ -55,7 +55,7 @@ module Scout7
 
     def get_signed_request(link, params = {})
       return @cache[link] if @cache[link]
-      uri = URI("#{API}/#{uri}")
+      uri = URI("#{API}/#{link}")
       req = Net::HTTP::Get.new(uri)
       req['Authorization'] = "Bearer #{auth_header}"
       req['ApiKey'] = api_key
