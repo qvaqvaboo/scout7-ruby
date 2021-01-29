@@ -35,8 +35,8 @@ module Scout7
 
     def fixtures(competition_ids)
       competition_ids = [competition_ids].flatten
-      data = competition_ids.map { |id| get_signed_request("sc7core/tournaments/getCompetitionFixtures?competitionId=#{id}") }
-      data.flatten.map { |f| Scout7::Objects::Fixture.new(f) }
+      data = competition_ids.map { |id| get_signed_request("sc7core/tournaments/getCompetitionFixtures?competitionId=#{id}") rescue nil }
+      data.compact.flatten.map { |f| Scout7::Objects::Fixture.new(f) }
     end
 
     def competitions
