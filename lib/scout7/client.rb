@@ -14,6 +14,7 @@ module Scout7
       @password = password
       @grant_type = grant_type
       @api_key = api_key
+      @cache = {}
     end
 
     def notes
@@ -52,7 +53,8 @@ module Scout7
       @auth_header ||= JSON.parse(post_urlencoded_request("token", { grant_type: grant_type, username: username, password: password }).body)['access_token']
     end
 
-    def get_signed_request(uri, params = {})
+    def get_signed_request(link, params = {})
+      return @cache[link] if @cache[link]
       uri = URI("#{API}/#{uri}")
       req = Net::HTTP::Get.new(uri)
       req['Authorization'] = "Bearer #{auth_header}"
@@ -64,7 +66,7 @@ module Scout7
       
       p res
 
-      JSON.parse(res.body)
+      @cache[link] = JSON.parse(res.body)
     end
 
     def post_urlencoded_request(uri, args = {})
