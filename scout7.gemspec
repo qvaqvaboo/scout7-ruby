@@ -9,21 +9,23 @@ Gem::Specification.new do |spec|
   spec.platform = Gem::Platform::RUBY
   spec.authors = ["Vlad Andersen"]
   spec.email = ["vlad.andersen@gmail.com"]
-  spec.homepage = ""
+  spec.homepage = "https://github.com/mustangostang/scout7-ruby"
   spec.summary = ""
   spec.license = "MIT"
 
   spec.metadata = {
-    "source_code_uri" => "",
-    "changelog_uri" => "/blob/master/CHANGES.md",
-    "bug_tracker_uri" => "/issues"
+    "source_code_uri" => "https://github.com/mustangostang/scout7-ruby",
+    "changelog_uri" => "https://github.com/mustangostang/scout7-ruby/blob/master/CHANGES.md",
+    "bug_tracker_uri" => "https://github.com/mustangostang/scout7-ruby/issues"
   }
 
 
   spec.required_ruby_version = "~> 2.6"
+
+  spec.add_dependency "http", "~> 4"
+
   spec.add_development_dependency "bundler-audit", "~> 0.6"
   spec.add_development_dependency "gemsmith", "~> 13.7"
-  spec.add_development_dependency "git-cop", "~> 3.5"
   spec.add_development_dependency "guard-rspec", "~> 4.7"
   spec.add_development_dependency "pry", "~> 0.12"
   spec.add_development_dependency "pry-byebug", "~> 3.7"
