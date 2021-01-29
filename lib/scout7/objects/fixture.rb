@@ -9,7 +9,11 @@ module Scout7
       end
 
       def name
-        "#{human_date}: #{@data['HomeTeamName']} v #{@data['AwayTeamname']}"
+        "#{human_date}: #{@data['HomeTeamName']} v #{@data['AwayTeamName']}"
+      end
+
+      def competition_name
+        @data["CompetitionName"]
       end
 
       def future?
