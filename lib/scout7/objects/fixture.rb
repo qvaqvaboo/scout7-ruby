@@ -8,6 +8,14 @@ module Scout7
         @data = data
       end
 
+      def id
+        @data["FixtureId"]
+      end
+
+      def score
+        "#{@data["HomeTeamScore"]}:#{@data["AwayTeamScore"]}"
+      end
+
       def name
         "#{human_date}: #{@data['HomeTeamName']} v #{@data['AwayTeamName']}"
       end
