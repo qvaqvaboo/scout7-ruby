@@ -17,7 +17,7 @@ module Scout7
       end
 
       def name
-        "#{human_date}: #{@data['HomeTeamName']} v #{@data['AwayTeamName']}"
+        "#{short_date}: #{@data['HomeTeamName']} v #{@data['AwayTeamName']}"
       end
 
       def competition_name
@@ -38,6 +38,10 @@ module Scout7
 
       def human_date
         date.strftime("%b %e").gsub('  ', ' ')
+      end
+
+      def short_date
+        date.strftime("%y%m%d")
       end
 
       def date
