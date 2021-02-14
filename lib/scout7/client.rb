@@ -21,16 +21,16 @@ module Scout7
       get_signed_request("sc7client/notes?startdate=2021-01-05&enddate=2021-01-20")
     end
 
-    def planner
-      get_signed_request("sc7client/scoutingplanner/byDate?startdate=2021-01-01&enddate=2021-01-10")
+    def planner(start_date, end_date)
+      get_signed_request("sc7client/scoutingplanner/byDate?startdate=#{start_date}&enddate=#{end_date}")
     end
 
     def shortlists
       get_signed_request("sc7client/shortlists?culture=en-GB")
     end
 
-    def shortlists
-      get_signed_request("sc7client/shortlists?culture=en-GB")
+    def notes(start_date, end_date, type)
+      get_signed_request("sc7client/notes?startdate=#{start_date}&enddate=#{end_date}&notetypeid=#{type}")
     end
 
     def fixtures(competition_ids)
@@ -56,6 +56,7 @@ module Scout7
     def get_signed_request(link, params = {})
       return @cache[link] if @cache[link]
       uri = URI("#{API}/#{link}")
+      p uri
       req = Net::HTTP::Get.new(uri)
       req['Authorization'] = "Bearer #{auth_header}"
       req['ApiKey'] = api_key
