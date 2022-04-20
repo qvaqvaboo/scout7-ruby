@@ -15,6 +15,23 @@ module Scout7
       def score
         "#{@data["HomeTeamScore"]}:#{@data["AwayTeamScore"]}"
       end
+      
+      def home_team_id
+        @data["HomeTeamId"]
+      end
+      
+      def home_team_name
+        @data["HomeTeamName"]
+      end
+      
+            
+      def away_team_id
+        @data["AwayTeamId"]
+      end
+      
+      def away_team_name
+        @data["AwayTeamName"]
+      end
 
       def name
         "#{short_date}: #{@data['HomeTeamName']} v #{@data['AwayTeamName']}"
