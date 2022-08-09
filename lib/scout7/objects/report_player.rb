@@ -17,17 +17,28 @@ module Scout7
       private
 
       def elements(els)
-        els.flat_map { |e| e["Fields"] }.map do |field|
-          key = field["Label"]
-          value = field["Value"]
-          if field.keys - ["Label", "Value"] != []
-            value = field
-            value.delete("Label")
-            value['text'] = value.delete('TextValue') if value['TextValue']
-            value['value'] = value.delete('Value') if value['Value']
+        map = {}
+        verdicts = []
+        elements = els.flat_map do |e|
+          if e["ReportElement"] == "ComboBoxVerdict"
+            e["Fields"].each { |f| map[f["Label"]] = f["TextValue"] }
+            next
           end
-          key && [key, value]
-        end.compact.to_h
+
+          e["Fields"].each do |field|
+            key = field["Label"]
+            value = field["Value"]
+            if field.keys - ["Label", "Value"] != []
+              value = field
+              value.delete("Label")
+              value['text'] = value.delete('TextValue') if value['TextValue']
+              value['value'] = value.delete('Value') if value['Value']
+            end
+            map[key] = value
+          end
+        end
+
+        map
       end
 
 
