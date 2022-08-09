@@ -29,7 +29,7 @@ module Scout7
       end
 
       def players
-        @data["PlayerElements"].map do |player|
+        (@data["PlayerElements"] || []).map do |player|
           Scout7::Objects::ReportPlayer.new(player)
         end
       end
