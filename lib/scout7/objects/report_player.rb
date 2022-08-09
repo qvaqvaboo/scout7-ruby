@@ -10,8 +10,12 @@ module Scout7
         @data["PlayerId"]
       end
 
+      def name
+        contents["Player Name"]
+      end
+
       def contents
-        elements(@data["ReportElements"])
+        @contents ||= elements(@data["ReportElements"])
       end
 
       private
