@@ -1,6 +1,9 @@
 require "http"
 require "net/http"
 require "scout7/objects/fixture"
+require "scout7/objects/short_report"
+require "scout7/objects/report"
+require "scout7/objects/report_player"
 
 module Scout7
   class Client
@@ -17,8 +20,12 @@ module Scout7
       @cache = {}
     end
 
-    def notes
-      get_signed_request("sc7client/notes?startdate=2021-01-05&enddate=2021-01-20")
+    def report(report_id)
+      Scout7::Objects::Report.new(get_signed_request("sc7client/reports/byReportId?reportId=#{report_id}"))
+    end
+
+    def reports(start_date, end_date)
+      get_signed_request("sc7client/reports/byDate?startdate=#{start_date}&enddate=#{end_date}").map { |r| Scout7::Objects::ShortReport.new(r) }
     end
 
     def planner(start_date, end_date)
@@ -37,6 +44,14 @@ module Scout7
       competition_ids = [competition_ids].flatten
       data = competition_ids.map { |id| get_signed_request("sc7core/tournaments/getCompetitionFixtures?competitionId=#{id}") rescue nil }
       data.compact.flatten.map { |f| Scout7::Objects::Fixture.new(f) }
+    end
+
+    def convert_competition(competition_id)
+      get_signed_request("sc7core/optaS7Convert?id=#{competition_id}&direction=5&source=3")
+    end
+
+    def tournaments
+      get_signed_request("sc7core/tournaments")
     end
 
     def competitions
