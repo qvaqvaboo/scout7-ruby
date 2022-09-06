@@ -9,7 +9,7 @@ module Scout7
   class Client
 
     API = "https://data.scout7.com"
-  
+
     attr_reader :username, :password, :api_key, :grant_type
 
     def initialize(username:, password:, grant_type: 'password', api_key: nil)
@@ -54,6 +54,18 @@ module Scout7
       get_signed_request("sc7core/tournaments")
     end
 
+    def tournament_teams(competition_id)
+      get_signed_request("sc7core/teams/byTournament?tournamentId=#{competition_id}")
+    end
+
+    def tournament_fixtures(competition_id)
+      get_signed_request("sc7core/tournaments/getCompetitionFixtures?competitionId=#{competition_id}")
+    end
+
+    def fixture_info(fixture_id)
+      get_signed_request("sc7core/tournaments/getMatchData?fixtureId=#{fixture_id}")
+    end
+
     def competitions
       get_signed_request("sc7core/tournaments")
     end
@@ -75,11 +87,11 @@ module Scout7
       req = Net::HTTP::Get.new(uri)
       req['Authorization'] = "Bearer #{auth_header}"
       req['ApiKey'] = api_key
-      
+
       res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) {|http|
         http.request(req)
       }
-      
+
       p res
 
       @cache[link] = JSON.parse(res.body)
