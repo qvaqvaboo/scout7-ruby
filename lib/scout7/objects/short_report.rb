@@ -7,6 +7,10 @@ module Scout7
       def initialize(data)
         @data = data
       end
+      
+      def data
+        @data
+      end
 
       def report_id
         @data["ReportId"]
@@ -40,7 +44,22 @@ module Scout7
         @data["Ratings"].to_h
       end
 
-
+      def home_team_name
+        @data["HomeTeam"]
+      end
+      
+      def home_team_id
+        @data["HomeTeamId"]
+      end
+      
+      def away_team_name
+        @data["AwayTeam"]
+      end
+      
+      def away_team_id
+        @data["AwayTeamId"]
+      end
+      
     end
   end
 end
